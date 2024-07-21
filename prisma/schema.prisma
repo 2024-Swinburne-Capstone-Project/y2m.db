@@ -12,3 +12,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model BlogPost {
+  id      Int      @id @default(autoincrement())
+  title   String
+  content String
+  date    DateTime
+  author  String
+  imagePath  String
+}
+
+model Video {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  embeddingLink   String
+  videoLength     String
+}
