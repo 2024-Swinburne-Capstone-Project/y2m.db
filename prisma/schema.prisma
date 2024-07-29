@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,18 +8,70 @@ datasource db {
 }
 
 model BlogPost {
-  id      Int      @id @default(autoincrement())
-  title   String
-  content String
-  date    DateTime
-  author  String
-  imagePath  String
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  date      DateTime
+  author    String
+  imagePath String
 }
 
 model Video {
-  id              Int      @id @default(autoincrement())
-  title           String
-  description     String
-  embeddingLink   String
-  videoLength     String
+  id            Int    @id @default(autoincrement())
+  title         String
+  description   String
+  embeddingLink String
+  videoLength   String
+}
+
+model User {
+  id               String            @id
+  name             String
+  email            String            @unique
+  milestones       Milestone[]
+  developmentAreas DevelopmentArea[]
+  badges           Badge[]
+}
+
+model Milestone {
+  id        Int             @id @default(autoincrement())
+  title     String
+  status    MilestoneStatus
+  startDate DateTime
+  endDate   DateTime
+  userId    String
+  user      User            @relation(fields: [userId], references: [id])
+  steps     MilestoneStep[]
+}
+
+model MilestoneStep {
+  id          Int             @id @default(autoincrement())
+  name        String
+  status      MilestoneStatus
+  milestoneId Int
+  milestone   Milestone       @relation(fields: [milestoneId], references: [id])
+}
+
+model DevelopmentArea {
+  id     Int    @id @default(autoincrement())
+  name   String
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Badge {
+  id           Int      @id @default(autoincrement())
+  name         String
+  icon         String
+  senderName   String
+  receivedDate DateTime
+  message      String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+enum MilestoneStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
 }
