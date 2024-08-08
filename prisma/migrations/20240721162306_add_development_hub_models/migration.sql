@@ -3,7 +3,7 @@ CREATE TYPE "MilestoneStatus" AS ENUM ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
 
@@ -17,7 +17,7 @@ CREATE TABLE "Milestone" (
     "status" "MilestoneStatus" NOT NULL,
     "startDate" TIMESTAMP(3) NOT NULL,
     "endDate" TIMESTAMP(3) NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Milestone_pkey" PRIMARY KEY ("id")
 );
@@ -36,7 +36,7 @@ CREATE TABLE "MilestoneStep" (
 CREATE TABLE "DevelopmentArea" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "DevelopmentArea_pkey" PRIMARY KEY ("id")
 );
@@ -49,7 +49,7 @@ CREATE TABLE "Badge" (
     "senderName" TEXT NOT NULL,
     "receivedDate" TIMESTAMP(3) NOT NULL,
     "message" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Badge_pkey" PRIMARY KEY ("id")
 );
