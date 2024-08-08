@@ -7,6 +7,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id                  String            @id
+  name                String
+  email               String            @unique
+  aboutMe             String?
+  linkedInProfileLink String?
+  milestones          Milestone[]
+  developmentAreas    DevelopmentArea[]
+  badges              Badge[]
+  education           Education[]
+  experience          Experience[]
+  skills              Skill[]
+}
+
+model Education {
+  id           Int       @id @default(autoincrement())
+  userId       String
+  institution  String
+  degree       String
+  fieldOfStudy String
+  startDate    DateTime
+  endDate      DateTime?
+  grade        String?
+  onGoing      Boolean
+  user         User      @relation(fields: [userId], references: [id])
+}
+
+model Experience {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  position  String
+  company   String
+  location  String
+  startDate DateTime
+  endDate   DateTime?
+  current   Boolean
+  user      User      @relation(fields: [userId], references: [id])
+}
+
+model Skill {
+  id     Int    @id @default(autoincrement())
+  userId String
+  name   String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
 model BlogPost {
   id        Int      @id @default(autoincrement())
   title     String
@@ -24,50 +70,53 @@ model Video {
   videoLength   String
 }
 
-model User {
-  id               String            @id
-  name             String
-  email            String            @unique
-  milestones       Milestone[]
-  developmentAreas DevelopmentArea[]
-  badges           Badge[]
-}
-
 model Milestone {
   id        Int             @id @default(autoincrement())
+  userId    String
   title     String
   status    MilestoneStatus
   startDate DateTime
   endDate   DateTime
-  userId    String
   user      User            @relation(fields: [userId], references: [id])
   steps     MilestoneStep[]
 }
 
 model MilestoneStep {
   id          Int             @id @default(autoincrement())
+  milestoneId Int
   name        String
   status      MilestoneStatus
-  milestoneId Int
   milestone   Milestone       @relation(fields: [milestoneId], references: [id])
 }
 
 model DevelopmentArea {
   id     Int    @id @default(autoincrement())
-  name   String
   userId String
+  name   String
   user   User   @relation(fields: [userId], references: [id])
 }
 
 model Badge {
   id           Int      @id @default(autoincrement())
+  userId       String
   name         String
   icon         String
   senderName   String
   receivedDate DateTime
   message      String
-  userId       String
   user         User     @relation(fields: [userId], references: [id])
+}
+
+model GetInTouch {
+  id           Int       @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String
+  demo         Boolean
+  feedback     Boolean
+  question     Boolean
+  message      String
+  receivedDate DateTime?
 }
 
 enum MilestoneStatus {
