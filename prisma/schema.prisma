@@ -10,7 +10,7 @@ datasource db {
 model User {
   id                  String            @id
   name                String
-  email               String            @unique
+  email               String?           @unique
   aboutMe             String?
   linkedInProfileLink String?
   milestones          Milestone[]
