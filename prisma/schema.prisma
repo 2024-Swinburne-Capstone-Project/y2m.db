@@ -19,6 +19,23 @@ model User {
   education           Education[]
   experience          Experience[]
   skills              Skill[]
+
+  mentorFor MentorMentee[] @relation(name: "MentorRelation")
+  menteeFor MentorMentee[] @relation(name: "MenteeRelation")
+}
+
+model MentorMentee {
+  mentorId  String
+  menteeId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mentee User @relation(name: "MenteeRelation", fields: [menteeId], references: [id])
+  mentor User @relation(name: "MentorRelation", fields: [mentorId], references: [id])
+
+  @@id([mentorId, menteeId])
+  @@unique([mentorId, menteeId])
+  @@map("mentor_mentee")
 }
 
 model Education {
