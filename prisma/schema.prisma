@@ -35,7 +35,6 @@ model MentorMentee {
 
   @@id([mentorId, menteeId])
   @@unique([mentorId, menteeId])
-  @@map("mentor_mentee")
 }
 
 model Education {
