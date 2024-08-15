@@ -13,6 +13,7 @@ model User {
   email               String?           @unique
   aboutMe             String?
   linkedInProfileLink String?
+  profilePictureURL   String?
   milestones          Milestone[]
   developmentAreas    DevelopmentArea[]
   badges              Badge[]
