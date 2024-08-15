@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "migrate": "prisma migrate dev --skip-generate"
+    "migrate": "prisma migrate dev --skip-generate",
+    "format": "prisma format"
   },
   "keywords": [],
   "author": "",
