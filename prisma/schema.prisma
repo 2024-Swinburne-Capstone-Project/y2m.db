@@ -14,15 +14,74 @@ model User {
   aboutMe             String?
   linkedInProfileLink String?
   profilePictureURL   String?
+  isMentor            Boolean           @default(false)
+  isMentee            Boolean           @default(false)
+  mentorAreas         String[]
+  menteeInterests     String[]
+  availability        String?
   milestones          Milestone[]
   developmentAreas    DevelopmentArea[]
   badges              Badge[]
   education           Education[]
   experience          Experience[]
   skills              Skill[]
+  mentorFor           MentorMentee[]    @relation(name: "MentorRelation")
+  menteeFor           MentorMentee[]    @relation(name: "MenteeRelation")
+  mentorRequests      MentorshipRequest[] @relation("MentorRequests")
+  menteeRequests      MentorshipRequest[] @relation("MenteeRequests")
+  sentMessages        Message[]         @relation("SentMessages")
+  participatedChats   ChatParticipant[]
+}
 
-  mentorFor MentorMentee[] @relation(name: "MentorRelation")
-  menteeFor MentorMentee[] @relation(name: "MenteeRelation")
+model Chat {
+  id            Int               @id @default(autoincrement())
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  participants  ChatParticipant[]
+  messages      Message[]
+}
+
+model ChatParticipant {
+  chatId    Int
+  userId    String
+  joinedAt  DateTime @default(now())
+
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@id([chatId, userId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+
+  chatId    Int
+  senderId  String
+
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  sender    User     @relation("SentMessages", fields: [senderId], references: [id])
+}
+
+model MentorshipRequest {
+  id        Int      @id @default(autoincrement())
+  mentorId  String
+  menteeId  String
+  status    MentorshipRequestStatus
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  mentor    User     @relation("MentorRequests", fields: [mentorId], references: [id])
+  mentee    User     @relation("MenteeRequests", fields: [menteeId], references: [id])
+
+  @@unique([mentorId, menteeId])
+}
+
+enum MentorshipRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 model MentorMentee {
