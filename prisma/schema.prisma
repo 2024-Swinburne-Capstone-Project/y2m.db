@@ -8,30 +8,31 @@ datasource db {
 }
 
 model User {
-  id                  String            @id
-  name                String
-  email               String?           @unique
-  aboutMe             String?
-  linkedInProfileLink String?
-  profilePictureURL   String?
-  isMentor            Boolean           @default(false)
-  isMentee            Boolean           @default(false)
-  mentorAreas         String[]
-  menteeInterests     String[]
-  availability        String?
-  milestones          Milestone[]
-  developmentAreas    DevelopmentArea[]
-  badges              Badge[]
-  education           Education[]
-  experience          Experience[]
-  skills              Skill[]
-  mentorFor           MentorMentee[]    @relation(name: "MentorRelation")
-  menteeFor           MentorMentee[]    @relation(name: "MenteeRelation")
-  mentorRequests      MentorshipRequest[] @relation("MentorRequests")
-  menteeRequests      MentorshipRequest[] @relation("MenteeRequests")
-  sentMessages        Message[]         @relation("SentMessages")
-  participatedChats   ChatParticipant[]
-  role                String            @default("USER")
+  id                    String            @id
+  name                  String
+  email                 String?           @unique
+  aboutMe               String?
+  linkedInProfileLink   String?
+  profilePictureURL     String?
+  profileBackgroundURL  String?
+  isMentor              Boolean           @default(false)
+  isMentee              Boolean           @default(false)
+  mentorAreas           String[]
+  menteeInterests       String[]
+  availability          String?
+  milestones            Milestone[]
+  developmentAreas      DevelopmentArea[]
+  badges                Badge[]
+  education             Education[]
+  experience            Experience[]
+  skills                Skill[]
+  mentorFor             MentorMentee[]    @relation(name: "MentorRelation")
+  menteeFor             MentorMentee[]    @relation(name: "MenteeRelation")
+  mentorRequests        MentorshipRequest[] @relation("MentorRequests")
+  menteeRequests        MentorshipRequest[] @relation("MenteeRequests")
+  sentMessages          Message[]         @relation("SentMessages")
+  participatedChats     ChatParticipant[]
+  role                  String            @default("USER")
 }
 
 model Chat {
