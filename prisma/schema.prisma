@@ -31,6 +31,7 @@ model User {
   menteeRequests      MentorshipRequest[] @relation("MenteeRequests")
   sentMessages        Message[]         @relation("SentMessages")
   participatedChats   ChatParticipant[]
+  role                String            @default("USER")
 }
 
 model Chat {
