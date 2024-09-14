@@ -33,6 +33,7 @@ model User {
   sentMessages          Message[]         @relation("SentMessages")
   participatedChats     ChatParticipant[]
   role                  String            @default("USER")
+  overallRating         Float             @default(0)
 }
 
 model Chat {
@@ -201,4 +202,21 @@ enum MilestoneStatus {
   NOT_STARTED
   IN_PROGRESS
   COMPLETED
+}
+
+model MediaRelease {
+  id            Int    @id @default(autoincrement())
+  title         String
+  description   String
+  imagePath     String
+  href          String
+}
+
+model MentorFeedback {
+  id           Int       @id @default(autoincrement())
+  mentorId     String
+  menteeId     String
+  rating       Int
+  feedback     String
+  receivedDate DateTime  @default(now())
 }
