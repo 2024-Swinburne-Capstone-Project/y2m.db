@@ -33,6 +33,7 @@ model User {
   sentMessages          Message[]         @relation("SentMessages")
   participatedChats     ChatParticipant[]
   role                  String            @default("USER")
+  overallRating         Float             @default(0)
 }
 
 model Chat {
@@ -209,4 +210,13 @@ model MediaRelease {
   description   String
   imagePath     String
   href          String
+}
+
+model MentorFeedback {
+  id           Int       @id @default(autoincrement())
+  mentorId     String
+  menteeId     String
+  rating       Int
+  feedback     String
+  receivedDate DateTime  @default(now())
 }
