@@ -202,3 +202,11 @@ enum MilestoneStatus {
   IN_PROGRESS
   COMPLETED
 }
+
+model MediaRelease {
+  id            Int    @id @default(autoincrement())
+  title         String
+  description   String
+  imagePath     String
+  href          String
+}
