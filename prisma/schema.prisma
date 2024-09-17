@@ -228,3 +228,21 @@ model MentorFeedback {
   feedback     String
   receivedDate DateTime  @default(now())
 }
+
+enum NotificationType {
+  NEW_MENTORSHIP_REQUEST
+  NEW_MESSAGE
+  ACCEPTED_MENTORSHIP_REQUEST
+  REJECTED_MENTORSHIP_REQUEST
+}
+
+
+model Notification {
+  id           Int       @id @default(autoincrement())
+  userId       String
+  message      String
+  type         NotificationType
+  redirectLink String
+  receivedDate DateTime  @default(now())
+  read         Boolean   @default(false)
+}
