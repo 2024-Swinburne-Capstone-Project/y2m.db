@@ -158,6 +158,7 @@ model Milestone {
   endDate   DateTime
   user      User            @relation(fields: [userId], references: [id])
   steps     MilestoneStep[]
+  comments  MilestoneComment[]
 }
 
 model MilestoneStep {
@@ -165,7 +166,16 @@ model MilestoneStep {
   milestoneId Int
   name        String
   status      MilestoneStatus
+  dueDate     DateTime?
   milestone   Milestone       @relation(fields: [milestoneId], references: [id])
+}
+
+model MilestoneComment {
+  id          Int      @id @default(autoincrement())
+  milestoneId Int
+  content     String
+  createdAt   DateTime @default(now())
+  milestone   Milestone @relation(fields: [milestoneId], references: [id])
 }
 
 model DevelopmentArea {
