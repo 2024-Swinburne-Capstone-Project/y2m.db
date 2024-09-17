@@ -228,3 +228,27 @@ model MentorFeedback {
   feedback     String
   receivedDate DateTime  @default(now())
 }
+
+enum MentorshipNotificationType {
+  NEW_MENTORSHIP_REQUEST
+  ACCEPTED_MENTORSHIP_REQUEST
+  REJECTED_MENTORSHIP_REQUEST
+}
+
+model MentorshipNotification {
+  id           Int       @id @default(autoincrement())
+  userId       String
+  message      String
+  type         MentorshipNotificationType
+  redirectLink String
+  receivedDate DateTime  @default(now())
+  read         Boolean   @default(false)
+}
+
+model MessageNotification {
+  id           Int       @id @default(autoincrement())
+  userId       String
+  chatId       Int
+  receivedDate DateTime  @default(now())
+  read         Boolean   @default(false)
+}
