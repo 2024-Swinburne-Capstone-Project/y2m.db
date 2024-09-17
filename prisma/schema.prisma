@@ -17,8 +17,6 @@ model User {
   profileBackgroundURL  String?
   isMentor              Boolean           @default(false)
   isMentee              Boolean           @default(false)
-  mentorAreas           String[]
-  menteeInterests       String[]
   availability          String?
   milestones            Milestone[]
   developmentAreas      DevelopmentArea[]
