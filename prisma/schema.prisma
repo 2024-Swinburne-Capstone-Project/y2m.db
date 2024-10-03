@@ -32,6 +32,8 @@ model User {
   participatedChats     ChatParticipant[]
   role                  String            @default("USER")
   overallRating         Float             @default(0)
+  receivedFeedback      MentorFeedback[]  @relation("ReceivedFeedback")
+  givenFeedback         MentorFeedback[]  @relation("GivenFeedback")
 }
 
 model Chat {
@@ -124,10 +126,11 @@ model Experience {
 }
 
 model Skill {
-  id     Int    @id @default(autoincrement())
-  userId String
-  name   String
-  user   User   @relation(fields: [userId], references: [id])
+  id           Int    @id @default(autoincrement())
+  userId       String
+  name         String
+  endorsements Int    @default(0)
+  user         User   @relation(fields: [userId], references: [id])
 }
 
 model BlogPost {
@@ -226,7 +229,10 @@ model MentorFeedback {
   menteeId     String
   rating       Int
   feedback     String
+  endorsedSkill String?
   receivedDate DateTime  @default(now())
+  mentor       User      @relation("ReceivedFeedback", fields: [mentorId], references: [id])
+  mentee       User      @relation("GivenFeedback", fields: [menteeId], references: [id])
 }
 
 enum MentorshipNotificationType {
