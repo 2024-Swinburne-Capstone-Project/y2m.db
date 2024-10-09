@@ -258,3 +258,12 @@ model MessageNotification {
   receivedDate DateTime  @default(now())
   read         Boolean   @default(false)
 }
+
+model AccountNotification {
+  id           Int       @id @default(autoincrement())
+  userId       String
+  message      String
+  redirectLink String
+  receivedDate DateTime  @default(now())
+  read         Boolean   @default(false)
+}
